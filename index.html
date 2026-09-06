@@ -3,363 +3,175 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Dhvani - Lossless, ad-free music streaming designed for true audiophiles.">
-    <title>Dhvani — Lossless Audio Player</title>
+    <meta name="description" content="Dhvani - Crazy Immersive Audio Experience.">
+    <title>Dhvani — Unheard.</title>
     <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@100;300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@100;300;400;700;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    
+    <!-- GSAP for heavy scroll animation -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
-
-    <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-T0E00F6RWP"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-
-      gtag('config', 'G-T0E00F6RWP');
-    </script>
 </head>
 <body>
-    <div class="glow-canvas"></div>
-    <div class="grid-overlay"></div>
-    
-    <nav class="fade-in">
-        <div class="logo">
-            <span class="logo-dot"></span>
-            <span>dhvani</span>
+
+    <!-- SVG Filters -->
+    <svg style="width:0;height:0;position:absolute;" aria-hidden="true" focusable="false">
+      <defs>
+        <filter id="liquid-glass">
+            <feGaussianBlur in="SourceGraphic" stdDeviation="20" result="blur" />
+            <feColorMatrix in="blur" mode="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 40 -20" result="liquid" />
+            <feComposite in="SourceGraphic" in2="liquid" operator="atop"/>
+        </filter>
+        <filter id="glitch">
+            <feOffset dx="4" dy="0" in="SourceGraphic" result="red-shift">
+                <animate attributeName="dx" values="0; 4; -4; 0" dur="0.2s" repeatCount="indefinite" />
+            </feOffset>
+            <feOffset dx="-4" dy="0" in="SourceGraphic" result="blue-shift">
+                <animate attributeName="dx" values="0; -4; 4; 0" dur="0.2s" repeatCount="indefinite" />
+            </feOffset>
+            <feMerge>
+                <feMergeNode in="red-shift" />
+                <feMergeNode in="blue-shift" />
+                <feMergeNode in="SourceGraphic" />
+            </feMerge>
+        </filter>
+      </defs>
+    </svg>
+
+    <!-- UI Overlay (Fixed) -->
+    <nav class="hud-nav">
+        <div class="logo">DHVANI.OS // 1.1</div>
+        <div class="hud-controls">
+            <a href="Dhvani.apk" download="Dhvani.apk" class="btn-glitch" data-text="INITIALIZE">INITIALIZE</a>
         </div>
-        <div class="nav-links">
-            <a href="#features">Features</a>
-            <a href="#specifications">Specs</a>
-            <a href="#developer">Developer</a>
-            <a href="#faq">FAQ</a>
-        </div>
-        <a href="Dhvani-v1.1.0.apk" download="Dhvani-v1.1.0.apk" class="btn-minimal">Get App</a>
     </nav>
 
-    <main>
-        <!-- HERO -->
-        <section class="hero">
-            <div class="hero-content">
-                <span class="badge fade-in">Now on v1.1 — New Features</span>
-                <h1 class="fade-in">Sound in its<br><span class="highlight">purest form.</span></h1>
-                <p class="fade-in">A distraction-free, zero-ad music experience engineered with Clean Architecture. Stream at 320kbps and build custom playlists on a fluid interface.</p>
-                <div class="hero-actions fade-in">
-                    <a href="Dhvani-v1.1.0.apk" download="Dhvani-v1.1.0.apk" class="btn-primary">Download APK</a>
-                    <a href="#specifications" class="btn-secondary">Technical Specs</a>
+    <!-- Particle Layer -->
+    <canvas id="ambient-particles"></canvas>
+
+    <!-- Scroll timeline container -->
+    <div id="scroll-timeline">
+        <!-- The Pinned Canvas -->
+        <div id="pinned-canvas">
+            
+            <!-- The Sentient Background -->
+            <div class="sentient-bg">
+                <div class="blob blob-1"></div>
+                <div class="blob blob-2"></div>
+                <div class="blob blob-3"></div>
+            </div>
+
+            <!-- Glass Overlay -->
+            <div class="glass-overlay"></div>
+            
+            <div class="noise"></div>
+
+            <!-- Scene 1: Cinematic Intro -->
+            <div class="scene" id="scene-1">
+                <h1 class="z-text" id="t1">HEAR</h1>
+                <h1 class="z-text outline" id="t2">THE</h1>
+                <h1 class="z-text gradient" id="t3">UNHEARD.</h1>
+                <p class="z-text sub-text" id="t4">SCROLL TO DIVE IN.</p>
+            </div>
+
+            <!-- Scene 2: The Exploded Grid -->
+            <div class="scene" id="scene-2">
+                <div class="core-node" id="core">PURE AUDIO</div>
+                
+                <div class="orbit-node" id="node-1">
+                    <h3>320kbps</h3>
+                    <p>Zero Compression</p>
+                </div>
+                
+                <div class="orbit-node" id="node-2">
+                    <h3>No Ads</h3>
+                    <p>Zero Interruptions</p>
+                </div>
+                
+                <div class="orbit-node" id="node-3">
+                    <h3>OLED Black</h3>
+                    <p>Deep dark theme</p>
+                </div>
+                
+                <div class="orbit-node" id="node-4">
+                    <h3>Offline</h3>
+                    <p>Anywhere, Anytime</p>
+                </div>
+            </div>
+
+            <!-- Scene 3: The 3D Phone Mockup -->
+            <div class="scene" id="scene-3">
+                <div class="phone-frame" id="phone-mockup">
+                    <div class="phone-screen">
+                        <div class="app-ui">
+                            <div class="app-art">
+                                <img src="logo.png" alt="Album Art">
+                            </div>
+                            <div class="app-title">Lossless Stream</div>
+                            <div class="app-artist">Dhvani Engine</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="phone-text" id="phone-text">
+                    <h2>Fluid Interface.</h2>
+                    <p>A beautifully minimal UI that puts the music front and center.</p>
+                </div>
+            </div>
+
+            <!-- Scene 4: Horizontal Deep Dive -->
+            <div class="scene" id="scene-4">
+                <div class="horizontal-track">
+                    
+                    <div class="deep-dive-card">
+                        <div class="dd-visual dark-theme-glow">
+                            <div class="moon-icon">☾</div>
+                        </div>
+                        <h3>OLED Black UI</h3>
+                        <p>A true black background to save battery and look stunning.</p>
+                    </div>
+
+                    <div class="deep-dive-card">
+                        <div class="dd-visual playlist-cascade">
+                            <div class="p-card">Night Drive</div>
+                            <div class="p-card">Focus Flow</div>
+                            <div class="p-card">Raw Bass</div>
+                        </div>
+                        <h3>Custom Playlists</h3>
+                        <p>Infinite combinations at your fingertips.</p>
+                    </div>
+
+                    <div class="deep-dive-card">
+                        <div class="dd-visual offline-glow">
+                            <div class="download-icon">↓</div>
+                        </div>
+                        <h3>Offline Mode</h3>
+                        <p>Take your entire library anywhere, anytime.</p>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- Scene 5: The Download Monolith -->
+            <div class="scene" id="scene-5">
+                <div class="monolith-card">
+                    <div class="laser-scanner"></div>
+                    <h2>SYSTEM READY</h2>
+                    <p>Experience the ultimate audio player right now.</p>
+                    <a href="Dhvani.apk" download="Dhvani.apk" class="btn-glitch massive" data-text="DOWNLOAD APK">DOWNLOAD APK</a>
+                    
+                    <div class="hud-stats">
+                        <span>SIZE: 63.9 MB</span>
+                        <span>REQ: ANDROID 8.0+</span>
+                        <span>ENGINE: V1.1 CORE</span>
+                    </div>
                 </div>
             </div>
             
-            <div class="hero-visual fade-in">
-                <!-- Sleek, dark 3D Glass Monolith Slab -->
-                <div class="glass-monolith" id="monolith">
-                    <div class="monolith-reflection"></div>
-                    <div class="monolith-content">
-                        <div class="monolith-header">
-                            <span class="meta-label">STREAMING NOW</span>
-                            <span class="bitrate-tag">320 KBPS</span>
-                        </div>
-                        <div class="artwork-frame">
-                            <img src="logo.png" alt="Dhvani Logo">
-                        </div>
-                        <div class="monolith-info">
-                            <h3>Dhvani Premium</h3>
-                            <p>Studio Lossless Stream</p>
-                        </div>
-                        <div class="monolith-footer">
-                            <button class="btn-monolith-action" id="playlist-add-btn">+ Add to Playlist</button>
-                            <div class="wave-loader">
-                                <span></span>
-                                <span></span>
-                                <span></span>
-                                <span></span>
-                            </div>
-                        </div>
-                        <div class="monolith-toast" id="toast-msg">Added to Playlist</div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- BENTO FEATURES GRID -->
-        <section id="features" class="section border-top">
-            <span class="section-label">Features</span>
-            <div class="bento-grid">
-                <!-- Large Feature Card (2x1) -->
-                <div class="bento-card bento-large glass tilt-card">
-                    <div class="bento-inner">
-                        <span class="card-num">01</span>
-                        <h3>Studio Quality Audio</h3>
-                        <p>Stream directly from high-fidelity source servers without extra compression. Choose 320kbps for pristine audio quality or 96kbps to conserve data on mobile networks.</p>
-                        <div class="visual-freq-selector">
-                            <span class="freq-btn active" data-rate="320">320kbps</span>
-                            <span class="freq-btn" data-rate="160">160kbps</span>
-                            <span class="freq-btn" data-rate="96">96kbps</span>
-                            <div class="freq-visualizer">
-                                <div class="freq-bar" style="height: 80%"></div>
-                                <div class="freq-bar" style="height: 95%"></div>
-                                <div class="freq-bar" style="height: 60%"></div>
-                                <div class="freq-bar" style="height: 90%"></div>
-                                <div class="freq-bar" style="height: 40%"></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Regular Card -->
-                <div class="bento-card glass tilt-card">
-                    <div class="bento-inner">
-                        <span class="card-num">02</span>
-                        <h3>Custom Playlists</h3>
-                        <p>Create unlimited personal playlists. Import directly from Spotify or YouTube Music with a single paste of a link.</p>
-                    </div>
-                </div>
-
-                <!-- Regular Card -->
-                <div class="bento-card glass tilt-card">
-                    <div class="bento-inner">
-                        <span class="card-num">03</span>
-                        <h3>10-Band Equalizer</h3>
-                        <p>Shape your sound with a real 10-band EQ. Preset profiles like Bass Boost, Treble, and Vocal enhance every genre. Changes apply in real time.</p>
-                    </div>
-                </div>
-
-                <!-- Large Feature Card (2x1) -->
-                <div class="bento-card bento-large glass tilt-card">
-                    <div class="bento-inner">
-                        <span class="card-num">04</span>
-                        <h3>Uninterrupted Background Play</h3>
-                        <p>Keep the music going when your screen is off. Dhvani stays alive in the background without interruptions, even when multitasking or the screen locks.</p>
-                    </div>
-                </div>
-
-                <!-- Regular Card -->
-                <div class="bento-card glass tilt-card">
-                    <div class="bento-inner">
-                        <span class="card-num">05</span>
-                        <h3>Synced Lyrics</h3>
-                        <p>Real-time karaoke-style lyrics that highlight and scroll as the song plays. Tap any lyric line to instantly seek to that moment.</p>
-                    </div>
-                </div>
-
-                <!-- Regular Card -->
-                <div class="bento-card glass tilt-card">
-                    <div class="bento-inner">
-                        <span class="card-num">06</span>
-                        <h3>Offline Downloads</h3>
-                        <p>Download any song to your device for offline listening. Manage your local library directly from your Library tab. No internet required.</p>
-                    </div>
-                </div>
-
-                <!-- Large Feature Card (2x1) -->
-                <div class="bento-card bento-large glass tilt-card">
-                    <div class="bento-inner">
-                        <span class="card-num">07</span>
-                        <h3>Voice Search</h3>
-                        <p>Hands-free music discovery with live microphone input and real-time voice-to-text recognition. Speak a song name, artist, or mood and Dhvani finds it instantly. Features a premium animated waveform visualizer while listening.</p>
-                    </div>
-                </div>
-
-                <!-- Regular Card -->
-                <div class="bento-card glass tilt-card">
-                    <div class="bento-inner">
-                        <span class="card-num">08</span>
-                        <h3>Sleep Timer</h3>
-                        <p>Set a countdown to automatically stop playback. Perfect for falling asleep to music without draining your battery overnight.</p>
-                    </div>
-                </div>
-
-                <!-- Regular Card -->
-                <div class="bento-card glass tilt-card">
-                    <div class="bento-inner">
-                        <span class="card-num">09</span>
-                        <h3>Crossfade & Playback Speed</h3>
-                        <p>Seamlessly blend between tracks with adjustable crossfade duration. Control playback speed from 0.5× to 2.0× for podcasts, study sessions, or practice.</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- INTERFACE SHOWCASE -->
-        <section id="interface" class="section border-top">
-            <span class="section-label">Interface Tour</span>
-            <div class="tour-layout">
-                <div class="tour-nav">
-                    <h2>Experience Dhvani</h2>
-                    <p class="tour-subtitle">Take a quick walkthrough of the interface and player controls.</p>
-                    <div class="tour-steps">
-                        <div class="tour-step active" data-step="1">
-                            <span class="step-num">01</span>
-                            <div class="step-content">
-                                <h4>Discover & Search</h4>
-                                <p>Access millions of tracks instantly with swift, latency-free search and exploration features.</p>
-                            </div>
-                        </div>
-                        <div class="tour-step" data-step="2">
-                            <span class="step-num">02</span>
-                            <div class="step-content">
-                                <h4>Audio Stream Player</h4>
-                                <p>A clean, liquid-animated playback dashboard optimized for lossless audio streaming.</p>
-                            </div>
-                        </div>
-                        <div class="tour-step" data-step="3">
-                            <span class="step-num">03</span>
-                            <div class="step-content">
-                                <h4>Queue & Playlists</h4>
-                                <p>Manage your play queue and organize tracks into personal collections on-the-fly.</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="tour-visual">
-                    <div class="phone-frame">
-                        <div class="phone-screen">
-                            <img src="flutter_01.png" class="tour-img active" id="tour-img-1" alt="Home Screen">
-                            <img src="flutter_02.png" class="tour-img" id="tour-img-2" alt="Player Screen">
-                            <img src="flutter_03.png" class="tour-img" id="tour-img-3" alt="Equalizer Screen">
-                        </div>
-                        <div class="phone-notch"></div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- COMPARISON SECTION -->
-        <section id="specifications" class="section border-top">
-            <span class="section-label">Comparison</span>
-            <div class="specs-wrapper">
-                <div class="specs-table">
-                    <div class="table-header">
-                        <span class="row-label">Feature</span>
-                        <span class="row-value spec-header">Dhvani</span>
-                        <span class="row-value spec-header">Others</span>
-                    </div>
-                    <div class="table-row">
-                        <span class="row-label">Advertisements</span>
-                        <span class="row-value accent-check">None</span>
-                        <span class="row-value">Frequent</span>
-                    </div>
-                    <div class="table-row">
-                        <span class="row-label">Audio Quality</span>
-                        <span class="row-value accent-check">Up to 320kbps</span>
-                        <span class="row-value">Limited (128kbps free)</span>
-                    </div>
-                    <div class="table-row">
-                        <span class="row-label">Custom Playlists</span>
-                        <span class="row-value accent-check">Unlimited</span>
-                        <span class="row-value">Restricted</span>
-                    </div>
-                    <div class="table-row">
-                        <span class="row-label">Account Required</span>
-                        <span class="row-value accent-check">No</span>
-                        <span class="row-value">Mandatory</span>
-                    </div>
-                    <div class="table-row">
-                        <span class="row-label">Skips & Queues</span>
-                        <span class="row-value accent-check">Unlimited</span>
-                        <span class="row-value">Restricted</span>
-                    </div>
-                </div>
-                <div class="specs-diagram glass">
-                    <h4>The Philosophy</h4>
-                    <p class="phil-quote">We believe music should be heard exactly as the artist intended—completely free from distraction, subscription popups, and track limitations.</p>
-                </div>
-            </div>
-        </section>
-
-        <!-- DEVELOPER -->
-        <section id="developer" class="section border-top">
-            <div class="dev-layout">
-                <div class="dev-header">
-                    <span class="section-label">The Engineer</span>
-                    <h2>Designed & Built</h2>
-                </div>
-                <div class="dev-body glass">
-                    <p class="dev-bio">I'm a 3rd-year B.Tech AIML student and aspiring software engineer passionate about building AI-powered, real-world applications. I enjoy turning ideas into products using modern technologies and continuously improving my skills in software development, DSA, and problem-solving.</p>
-                    <div class="dev-meta">
-                        <div class="meta-block">
-                            <span class="meta-title">Status</span>
-                            <span class="meta-data">Active Development</span>
-                        </div>
-                        <div class="meta-block">
-                            <span class="meta-title">Role</span>
-                            <span class="meta-data">Lead Software Engineer</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- FAQ SECTION -->
-        <section id="faq" class="section border-top">
-            <span class="section-label">Common Queries</span>
-            <div class="faq-container">
-                <div class="faq-item">
-                    <div class="faq-question">
-                        <h3>Is the application completely ad-free?</h3>
-                        <span class="faq-toggle">+</span>
-                    </div>
-                    <div class="faq-answer">
-                        <p>Yes. Dhvani does not inject any advertisements into audio queues or app screens. We pull clean, direct streams directly to the device interface.</p>
-                    </div>
-                </div>
-                <div class="faq-item">
-                    <div class="faq-question">
-                        <h3>How does offline caching work?</h3>
-                        <span class="faq-toggle">+</span>
-                    </div>
-                    <div class="faq-answer">
-                        <p>Downloaded and queued songs are managed locally using Hive local storage. Tracks are cached securely to prevent data corruption and allow offline listening.</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-    </main>
-
-    <footer>
-        <div class="footer-wrap">
-            <p>© 2026 Dhvani. Built by an engineer.</p>
-            <div class="footer-links">
-                <a href="#" id="terms-link">Terms of Service</a>
-                <a href="#" id="privacy-link">Privacy Policy</a>
-            </div>
-            <a href="Dhvani-v1.1.0.apk" download="Dhvani-v1.1.0.apk" class="back-to-top">Download APK</a>
-        </div>
-    </footer>
-
-    <!-- Terms Modal -->
-    <div class="modal-overlay" id="terms-modal">
-        <div class="modal-content glass">
-            <div class="modal-header">
-                <h2>Terms of Service</h2>
-                <button class="modal-close" id="terms-close">&times;</button>
-            </div>
-            <div class="modal-body">
-                <p><strong>1. Acceptance of Terms</strong><br>By downloading or using the Dhvani application, you agree to these Terms of Service. If you do not agree, please do not use the application.</p>
-                <p><strong>2. Use License</strong><br>This application is provided for personal, non-commercial use only. You may not reverse engineer, decompile, or modify the source code without explicit written consent from the developer.</p>
-                <p><strong>3. Content Disclaimer</strong><br>Dhvani is a playback client that fetches dynamic streams from external endpoints. The developer does not host, upload, or index any copyrighted content. Content accessed via the app remains the property of their respective copyright holders.</p>
-                <p><strong>4. Limitation of Liability</strong><br>The application is provided "as is" without warranty of any kind. The developer shall not be liable for any damages arising out of the use or inability to use the software.</p>
-            </div>
         </div>
     </div>
 
-    <!-- Privacy Modal -->
-    <div class="modal-overlay" id="privacy-modal">
-        <div class="modal-content glass">
-            <div class="modal-header">
-                <h2>Privacy Policy</h2>
-                <button class="modal-close" id="privacy-close">&times;</button>
-            </div>
-            <div class="modal-body">
-                <p><strong>1. Information Collection</strong><br>Dhvani does not require users to create accounts, sign in, or provide any personal identification data. We do not collect names, email addresses, or phone numbers.</p>
-                <p><strong>2. Usage and Device Data</strong><br>We access device storage solely to cache offline playback tracks and preserve user playlist preferences locally. No background monitoring or telemetry is performed.</p>
-                <p><strong>3. Third-Party Services</strong><br>Audio streams are served directly from external Content Delivery Networks (CDNs). Those networks may log standard connection metrics (IP addresses, user agents) according to their own policies.</p>
-                <p><strong>4. Children's Privacy</strong><br>Since we collect no user information whatsoever, our service complies fully with protective age regulations.</p>
-            </div>
-        </div>
-    </div>
-
+    <!-- 10 screens worth of scrolling for the expanded timeline -->
+    <div class="scroll-spacer"></div>
 
     <script src="script.js"></script>
 </body>
