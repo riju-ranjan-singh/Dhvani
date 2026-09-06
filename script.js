@@ -11,12 +11,9 @@
 
 /* ── Download ───────────────────────────────────────────────── */
 function downloadApk() {
-    const a = document.createElement('a');
-    a.href     = 'Dhvani.apk';
-    a.download = 'Dhvani.apk';
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
+    // window.open works reliably from file:// — browser sees .apk as
+    // an unknown type and prompts Save As instead of navigating away.
+    window.open('Dhvani.apk', '_blank');
 }
 window.downloadApk = downloadApk;
 
