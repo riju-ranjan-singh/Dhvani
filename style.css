@@ -1,23 +1,15 @@
-/* ================================================================
-   DHVANI — Clean · Apple-inspired
-   Mobile-first · Fluid type · Zero frameworks
-   ================================================================ */
-
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
 :root {
     --bg:       #000000;
     --bg2:      #0a0a0a;
     --bg3:      #111111;
     --border:   rgba(255,255,255,0.1);
-    --white:    #f5f5f7;   /* Apple text white */
-    --muted:    #6e6e73;   /* Apple secondary */
+    --white:    #f5f5f7;   
+    --muted:    #6e6e73;   
     --subtle:   #3a3a3c;
-
     --purple:   #9333ea;
     --pink:     #ec4899;
     --grad:     linear-gradient(135deg, #9333ea, #ec4899);
-
     --r:  18px;
     --r2: 28px;
     --max:  1080px;
@@ -25,9 +17,7 @@
     --sec:  clamp(80px, 12vw, 160px);
     --ease: cubic-bezier(.4, 0, .2, 1);
 }
-
 html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
-
 body {
     background: var(--bg);
     color: var(--white);
@@ -36,12 +26,9 @@ body {
     line-height: 1.6;
     overflow-x: hidden;
 }
-
 img     { max-width: 100%; display: block; }
 a       { text-decoration: none; color: inherit; }
 button  { cursor: pointer; font-family: inherit; border: none; background: none; }
-
-/* ── Scroll reveal ── */
 .reveal {
     opacity: 0;
     transform: translateY(24px);
@@ -51,8 +38,6 @@ button  { cursor: pointer; font-family: inherit; border: none; background: none;
     opacity: 1;
     transform: none;
 }
-
-/* ── NAV ── */
 #nav {
     position: fixed;
     inset: 0 0 auto 0;
@@ -66,7 +51,6 @@ button  { cursor: pointer; font-family: inherit; border: none; background: none;
     -webkit-backdrop-filter: saturate(180%) blur(20px);
     border-bottom: 1px solid var(--border);
 }
-
 .nav-inner {
     width: 100%;
     max-width: var(--max);
@@ -76,7 +60,6 @@ button  { cursor: pointer; font-family: inherit; border: none; background: none;
     justify-content: space-between;
     gap: 24px;
 }
-
 .nav-logo {
     display: flex;
     align-items: center;
@@ -86,7 +69,6 @@ button  { cursor: pointer; font-family: inherit; border: none; background: none;
     letter-spacing: -.02em;
 }
 .nav-logo img { width: 24px; height: 24px; border-radius: 6px; }
-
 .nav-links {
     display: flex;
     gap: 32px;
@@ -97,21 +79,17 @@ button  { cursor: pointer; font-family: inherit; border: none; background: none;
     transition: color .2s;
 }
 .nav-links a:hover { color: var(--white); }
-
 .nav-cta {
     font-size: 13px;
     font-weight: 500;
-    color: #2997ff;   /* Apple blue */
+    color: #2997ff;   
     padding: 0;
     transition: opacity .2s;
 }
 .nav-cta:hover { opacity: .7; }
-
 @media (max-width: 600px) {
     .nav-links { display: none; }
 }
-
-/* ── Buttons ── */
 .btn-primary, a.btn-primary {
     display: inline-flex;
     align-items: center;
@@ -127,20 +105,16 @@ button  { cursor: pointer; font-family: inherit; border: none; background: none;
 }
 .btn-primary:hover, a.btn-primary:hover { opacity: .86; transform: scale(.98); }
 .btn-primary:active, a.btn-primary:active { transform: scale(.96); }
-
 .btn-primary.btn-large {
     padding: 18px 36px;
     font-size: clamp(15px, 2vw, 18px);
 }
-
 .btn-text {
     font-size: clamp(14px, 1.8vw, 16px);
     color: #2997ff;
     transition: opacity .2s;
 }
 .btn-text:hover { opacity: .7; }
-
-/* ── HERO ── */
 #hero {
     min-height: 100svh;
     display: flex;
@@ -151,7 +125,6 @@ button  { cursor: pointer; font-family: inherit; border: none; background: none;
     padding: 120px var(--pad) 80px;
     background: radial-gradient(ellipse 60% 50% at 50% 0%, rgba(147,51,234,.12), transparent);
 }
-
 .hero-eyebrow {
     font-size: clamp(13px, 1.6vw, 16px);
     font-weight: 500;
@@ -159,7 +132,6 @@ button  { cursor: pointer; font-family: inherit; border: none; background: none;
     margin-bottom: 16px;
     letter-spacing: .01em;
 }
-
 .hero-title {
     font-size: clamp(52px, 11vw, 120px);
     font-weight: 700;
@@ -168,7 +140,6 @@ button  { cursor: pointer; font-family: inherit; border: none; background: none;
     margin-bottom: 24px;
     transition-delay: .1s;
 }
-
 .hero-sub {
     font-size: clamp(16px, 2.4vw, 22px);
     color: var(--muted);
@@ -178,7 +149,6 @@ button  { cursor: pointer; font-family: inherit; border: none; background: none;
     margin-bottom: 40px;
     transition-delay: .2s;
 }
-
 .hero-actions {
     display: flex;
     align-items: center;
@@ -188,11 +158,9 @@ button  { cursor: pointer; font-family: inherit; border: none; background: none;
     margin-bottom: 80px;
     transition-delay: .3s;
 }
-
 .hero-logo-wrap {
     transition-delay: .4s;
 }
-
 .hero-logo-img {
     width: clamp(120px, 20vw, 220px);
     height: clamp(120px, 20vw, 220px);
@@ -200,20 +168,16 @@ button  { cursor: pointer; font-family: inherit; border: none; background: none;
     border-radius: 32px;
     box-shadow: 0 40px 120px rgba(147,51,234,.3), 0 0 0 1px rgba(255,255,255,.06);
 }
-
-/* ── BIG STATEMENT ── */
 .statement-section {
     padding: var(--sec) var(--pad);
     background: var(--bg2);
     border-top: 1px solid var(--border);
     border-bottom: 1px solid var(--border);
 }
-
 .statement-inner {
     max-width: 900px;
     margin-inline: auto;
 }
-
 .statement {
     font-size: clamp(24px, 4.5vw, 52px);
     font-weight: 300;
@@ -221,38 +185,29 @@ button  { cursor: pointer; font-family: inherit; border: none; background: none;
     letter-spacing: -.02em;
     color: var(--muted);
 }
-
 .statement-accent {
     color: var(--white);
     font-weight: 600;
 }
-
-/* ── CALLOUTS ── */
 #callouts { background: var(--bg); }
-
 .callout {
     padding: var(--sec) var(--pad);
     border-bottom: 1px solid var(--border);
 }
-
 .callout:nth-child(even) { background: var(--bg2); }
-
 .callout-inner {
     max-width: var(--max);
     margin-inline: auto;
     max-width: 680px;
 }
-
 .callout-left  { text-align: left;  margin-left: 0; }
 .callout-right { text-align: right; margin-left: auto; margin-right: 0; }
-
 @media (max-width: 600px) {
     .callout-left, .callout-right {
         text-align: left;
         margin-inline: auto;
     }
 }
-
 .callout-label {
     font-size: 13px;
     font-weight: 500;
@@ -261,7 +216,6 @@ button  { cursor: pointer; font-family: inherit; border: none; background: none;
     text-transform: uppercase;
     margin-bottom: 16px;
 }
-
 .callout h2 {
     font-size: clamp(36px, 6.5vw, 72px);
     font-weight: 700;
@@ -269,29 +223,23 @@ button  { cursor: pointer; font-family: inherit; border: none; background: none;
     line-height: 1.05;
     margin-bottom: 20px;
 }
-
 .callout-desc {
     font-size: clamp(15px, 2vw, 20px);
     color: var(--muted);
     line-height: 1.6;
     max-width: 500px;
 }
-
 .callout-right .callout-desc { margin-left: auto; }
-
-/* ── FEATURES ── */
 #features {
     padding: var(--sec) var(--pad);
     background: var(--bg3);
     border-top: 1px solid var(--border);
     border-bottom: 1px solid var(--border);
 }
-
 .features-inner {
     max-width: var(--max);
     margin-inline: auto;
 }
-
 .section-label {
     font-size: 13px;
     font-weight: 500;
@@ -301,7 +249,6 @@ button  { cursor: pointer; font-family: inherit; border: none; background: none;
     margin-bottom: 12px;
     transition-delay: 0s;
 }
-
 .section-title {
     font-size: clamp(32px, 5.5vw, 60px);
     font-weight: 700;
@@ -310,7 +257,6 @@ button  { cursor: pointer; font-family: inherit; border: none; background: none;
     margin-bottom: clamp(40px, 6vw, 72px);
     transition-delay: .1s;
 }
-
 .feat-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -320,10 +266,8 @@ button  { cursor: pointer; font-family: inherit; border: none; background: none;
     border-radius: var(--r2);
     overflow: hidden;
 }
-
 @media (max-width: 860px) { .feat-grid { grid-template-columns: repeat(2, 1fr); } }
 @media (max-width: 520px) { .feat-grid { grid-template-columns: 1fr; } }
-
 .feat-item {
     background: var(--bg3);
     padding: clamp(28px, 4vw, 44px);
@@ -331,7 +275,6 @@ button  { cursor: pointer; font-family: inherit; border: none; background: none;
     flex-direction: column;
     gap: 12px;
 }
-
 .feat-icon {
     font-size: clamp(22px, 3vw, 30px);
     background: var(--grad);
@@ -340,26 +283,21 @@ button  { cursor: pointer; font-family: inherit; border: none; background: none;
     background-clip: text;
     line-height: 1;
 }
-
 .feat-item h3 {
     font-size: clamp(15px, 1.8vw, 18px);
     font-weight: 600;
     letter-spacing: -.01em;
 }
-
 .feat-item p {
     font-size: clamp(13px, 1.4vw, 15px);
     color: var(--muted);
     line-height: 1.6;
 }
-
-/* ── PREVIEW ── */
 #preview {
     padding: var(--sec) var(--pad);
     background: var(--bg);
     border-bottom: 1px solid var(--border);
 }
-
 .preview-inner {
     max-width: var(--max);
     margin-inline: auto;
@@ -368,14 +306,11 @@ button  { cursor: pointer; font-family: inherit; border: none; background: none;
     gap: clamp(48px, 8vw, 100px);
     align-items: center;
 }
-
 @media (max-width: 800px) {
     .preview-inner { grid-template-columns: 1fr; }
     .preview-phone { order: -1; display: flex; justify-content: center; }
 }
-
 .preview-copy .section-label { transition-delay: 0s; }
-
 .preview-copy h2 {
     font-size: clamp(32px, 5vw, 54px);
     font-weight: 700;
@@ -384,7 +319,6 @@ button  { cursor: pointer; font-family: inherit; border: none; background: none;
     margin-bottom: 20px;
     transition-delay: .1s;
 }
-
 .preview-desc {
     font-size: clamp(15px, 1.8vw, 18px);
     color: var(--muted);
@@ -392,7 +326,6 @@ button  { cursor: pointer; font-family: inherit; border: none; background: none;
     margin-bottom: 28px;
     transition-delay: .2s;
 }
-
 .preview-list {
     list-style: none;
     display: flex;
@@ -400,24 +333,19 @@ button  { cursor: pointer; font-family: inherit; border: none; background: none;
     gap: 10px;
     transition-delay: .3s;
 }
-
 .preview-list li {
     font-size: clamp(14px, 1.6vw, 16px);
     color: var(--muted);
     padding-left: 16px;
     position: relative;
 }
-
 .preview-list li::before {
     content: '—';
     position: absolute;
     left: 0;
     color: var(--subtle);
 }
-
-/* Phone */
 .preview-phone { transition-delay: .2s; }
-
 .phone {
     width: clamp(220px, 36vw, 300px);
     aspect-ratio: 9/19.5;
@@ -431,7 +359,6 @@ button  { cursor: pointer; font-family: inherit; border: none; background: none;
                 0 0 0 1px rgba(255,255,255,.04),
                 inset 0 0 0 1px rgba(255,255,255,.02);
 }
-
 .phone-pill {
     width: 96px; height: 26px;
     background: #000;
@@ -440,7 +367,6 @@ button  { cursor: pointer; font-family: inherit; border: none; background: none;
     margin-top: 8px;
     flex-shrink: 0;
 }
-
 .phone-body {
     flex: 1;
     padding: 14px 18px 22px;
@@ -448,7 +374,6 @@ button  { cursor: pointer; font-family: inherit; border: none; background: none;
     flex-direction: column;
     align-items: center;
 }
-
 .ps-now-playing {
     font-size: 9px;
     font-weight: 500;
@@ -457,7 +382,6 @@ button  { cursor: pointer; font-family: inherit; border: none; background: none;
     color: var(--muted);
     margin-bottom: 14px;
 }
-
 .ps-art {
     width: 100%;
     aspect-ratio: 1;
@@ -471,12 +395,9 @@ button  { cursor: pointer; font-family: inherit; border: none; background: none;
     box-shadow: 0 12px 40px rgba(147,51,234,.25);
 }
 .ps-art img { width: 65%; object-fit: contain; }
-
 .ps-meta { text-align: center; margin-bottom: 12px; width: 100%; }
 .ps-track  { font-size: 12px; font-weight: 600; color: var(--white); margin-bottom: 3px; }
 .ps-artist { font-size: 10px; color: var(--muted); }
-
-/* Waveform bars */
 .ps-bars {
     display: flex;
     align-items: flex-end;
@@ -511,7 +432,6 @@ button  { cursor: pointer; font-family: inherit; border: none; background: none;
     from { transform: scaleY(.3); opacity:.5; }
     to   { transform: scaleY(1);  opacity:1;  }
 }
-
 .ps-progress { width: 100%; margin-bottom: 14px; }
 .ps-track-bar {
     height: 2px; width: 100%;
@@ -530,7 +450,6 @@ button  { cursor: pointer; font-family: inherit; border: none; background: none;
     font-size: 8px; color: var(--muted);
     font-variant-numeric: tabular-nums;
 }
-
 .ps-controls {
     display: flex; justify-content: space-between;
     align-items: center; width: 100%; margin-top: auto;
@@ -549,15 +468,12 @@ button  { cursor: pointer; font-family: inherit; border: none; background: none;
     display: flex; align-items: center; justify-content: center;
     padding: 0 !important; padding-left: 2px !important;
 }
-
-/* ── DOWNLOAD CTA ── */
 #download {
     padding: var(--sec) var(--pad);
     text-align: center;
     background: var(--bg2);
     border-top: 1px solid var(--border);
 }
-
 .download-inner {
     max-width: 600px;
     margin-inline: auto;
@@ -566,21 +482,18 @@ button  { cursor: pointer; font-family: inherit; border: none; background: none;
     align-items: center;
     gap: 20px;
 }
-
 .dl-title {
     font-size: clamp(52px, 10vw, 110px);
     font-weight: 700;
     letter-spacing: -.04em;
     line-height: 1.0;
 }
-
 .dl-sub {
     font-size: clamp(16px, 2.2vw, 22px);
     color: var(--muted);
     font-weight: 300;
     transition-delay: .1s;
 }
-
 .dl-actions {
     display: flex;
     flex-direction: column;
@@ -588,14 +501,11 @@ button  { cursor: pointer; font-family: inherit; border: none; background: none;
     gap: 12px;
     transition-delay: .2s;
 }
-
 .dl-spec {
     font-size: 13px;
     color: var(--muted);
     letter-spacing: .02em;
 }
-
-/* ── FOOTER ── */
 #footer {
     padding: clamp(28px, 4vw, 48px) var(--pad);
     border-top: 1px solid var(--border);
@@ -617,11 +527,8 @@ button  { cursor: pointer; font-family: inherit; border: none; background: none;
 .footer-top img { border-radius: 6px; }
 .footer-line { font-size: 13px; color: var(--muted); }
 .footer-copy { font-size: 11px; color: var(--subtle); }
-
-/* ── Mobile ── */
 @media (max-width: 480px) {
     .hero-actions { flex-direction: column; width: 100%; }
     .btn-primary { width: 100%; justify-content: center; }
     .callout-right .callout-desc { margin-left: 0; }
 }
-
