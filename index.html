@@ -3,175 +3,199 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Dhvani - Crazy Immersive Audio Experience.">
-    <title>Dhvani — Unheard.</title>
+    <meta name="description" content="Dhvani — A pure, ad-free music player for Android. 320kbps. No compromises.">
+    <title>Dhvani — Hear The Unheard</title>
     <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@100;300;400;700;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
-    
-    <!-- GSAP for heavy scroll animation -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@200;300;400;600;700;900&display=swap" rel="stylesheet">
 </head>
 <body>
 
-    <!-- SVG Filters -->
-    <svg style="width:0;height:0;position:absolute;" aria-hidden="true" focusable="false">
-      <defs>
-        <filter id="liquid-glass">
-            <feGaussianBlur in="SourceGraphic" stdDeviation="20" result="blur" />
-            <feColorMatrix in="blur" mode="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 40 -20" result="liquid" />
-            <feComposite in="SourceGraphic" in2="liquid" operator="atop"/>
-        </filter>
-        <filter id="glitch">
-            <feOffset dx="4" dy="0" in="SourceGraphic" result="red-shift">
-                <animate attributeName="dx" values="0; 4; -4; 0" dur="0.2s" repeatCount="indefinite" />
-            </feOffset>
-            <feOffset dx="-4" dy="0" in="SourceGraphic" result="blue-shift">
-                <animate attributeName="dx" values="0; -4; 4; 0" dur="0.2s" repeatCount="indefinite" />
-            </feOffset>
-            <feMerge>
-                <feMergeNode in="red-shift" />
-                <feMergeNode in="blue-shift" />
-                <feMergeNode in="SourceGraphic" />
-            </feMerge>
-        </filter>
-      </defs>
-    </svg>
-
-    <!-- UI Overlay (Fixed) -->
-    <nav class="hud-nav">
-        <div class="logo">DHVANI.OS // 1.1</div>
-        <div class="hud-controls">
-            <a href="Dhvani.apk" download="Dhvani.apk" class="btn-glitch" data-text="INITIALIZE">INITIALIZE</a>
+    <!-- NAV -->
+    <nav id="nav">
+        <div class="nav-inner">
+            <a href="#" class="nav-logo">
+                <img src="logo.png" alt="Dhvani">
+                <span>Dhvani</span>
+            </a>
+            <div class="nav-links">
+                <a href="#why">Why Dhvani</a>
+                <a href="#features">Features</a>
+                <a href="#preview">App</a>
+            </div>
+            <button class="nav-cta" onclick="downloadApk()">Download</button>
         </div>
     </nav>
 
-    <!-- Particle Layer -->
-    <canvas id="ambient-particles"></canvas>
-
-    <!-- Scroll timeline container -->
-    <div id="scroll-timeline">
-        <!-- The Pinned Canvas -->
-        <div id="pinned-canvas">
-            
-            <!-- The Sentient Background -->
-            <div class="sentient-bg">
-                <div class="blob blob-1"></div>
-                <div class="blob blob-2"></div>
-                <div class="blob blob-3"></div>
-            </div>
-
-            <!-- Glass Overlay -->
-            <div class="glass-overlay"></div>
-            
-            <div class="noise"></div>
-
-            <!-- Scene 1: Cinematic Intro -->
-            <div class="scene" id="scene-1">
-                <h1 class="z-text" id="t1">HEAR</h1>
-                <h1 class="z-text outline" id="t2">THE</h1>
-                <h1 class="z-text gradient" id="t3">UNHEARD.</h1>
-                <p class="z-text sub-text" id="t4">SCROLL TO DIVE IN.</p>
-            </div>
-
-            <!-- Scene 2: The Exploded Grid -->
-            <div class="scene" id="scene-2">
-                <div class="core-node" id="core">PURE AUDIO</div>
-                
-                <div class="orbit-node" id="node-1">
-                    <h3>320kbps</h3>
-                    <p>Zero Compression</p>
-                </div>
-                
-                <div class="orbit-node" id="node-2">
-                    <h3>No Ads</h3>
-                    <p>Zero Interruptions</p>
-                </div>
-                
-                <div class="orbit-node" id="node-3">
-                    <h3>OLED Black</h3>
-                    <p>Deep dark theme</p>
-                </div>
-                
-                <div class="orbit-node" id="node-4">
-                    <h3>Offline</h3>
-                    <p>Anywhere, Anytime</p>
-                </div>
-            </div>
-
-            <!-- Scene 3: The 3D Phone Mockup -->
-            <div class="scene" id="scene-3">
-                <div class="phone-frame" id="phone-mockup">
-                    <div class="phone-screen">
-                        <div class="app-ui">
-                            <div class="app-art">
-                                <img src="logo.png" alt="Album Art">
-                            </div>
-                            <div class="app-title">Lossless Stream</div>
-                            <div class="app-artist">Dhvani Engine</div>
-                        </div>
-                    </div>
-                </div>
-                <div class="phone-text" id="phone-text">
-                    <h2>Fluid Interface.</h2>
-                    <p>A beautifully minimal UI that puts the music front and center.</p>
-                </div>
-            </div>
-
-            <!-- Scene 4: Horizontal Deep Dive -->
-            <div class="scene" id="scene-4">
-                <div class="horizontal-track">
-                    
-                    <div class="deep-dive-card">
-                        <div class="dd-visual dark-theme-glow">
-                            <div class="moon-icon">☾</div>
-                        </div>
-                        <h3>OLED Black UI</h3>
-                        <p>A true black background to save battery and look stunning.</p>
-                    </div>
-
-                    <div class="deep-dive-card">
-                        <div class="dd-visual playlist-cascade">
-                            <div class="p-card">Night Drive</div>
-                            <div class="p-card">Focus Flow</div>
-                            <div class="p-card">Raw Bass</div>
-                        </div>
-                        <h3>Custom Playlists</h3>
-                        <p>Infinite combinations at your fingertips.</p>
-                    </div>
-
-                    <div class="deep-dive-card">
-                        <div class="dd-visual offline-glow">
-                            <div class="download-icon">↓</div>
-                        </div>
-                        <h3>Offline Mode</h3>
-                        <p>Take your entire library anywhere, anytime.</p>
-                    </div>
-
-                </div>
-            </div>
-
-            <!-- Scene 5: The Download Monolith -->
-            <div class="scene" id="scene-5">
-                <div class="monolith-card">
-                    <div class="laser-scanner"></div>
-                    <h2>SYSTEM READY</h2>
-                    <p>Experience the ultimate audio player right now.</p>
-                    <a href="Dhvani.apk" download="Dhvani.apk" class="btn-glitch massive" data-text="DOWNLOAD APK">DOWNLOAD APK</a>
-                    
-                    <div class="hud-stats">
-                        <span>SIZE: 63.9 MB</span>
-                        <span>REQ: ANDROID 8.0+</span>
-                        <span>ENGINE: V1.1 CORE</span>
-                    </div>
-                </div>
-            </div>
-            
+    <!-- HERO -->
+    <section id="hero">
+        <div class="hero-eyebrow reveal">New. v1.1</div>
+        <h1 class="hero-title reveal">Hear<br>the unheard.</h1>
+        <p class="hero-sub reveal">A music player that refuses to be anything else.<br>No ads. No compression. No compromise.</p>
+        <div class="hero-actions reveal">
+            <button class="btn-primary" onclick="downloadApk()">Download Free</button>
+            <a href="#why" class="btn-text">Learn more ↓</a>
         </div>
-    </div>
+        <div class="hero-logo-wrap reveal">
+            <img src="logo.png" alt="Dhvani" class="hero-logo-img">
+        </div>
+    </section>
 
-    <!-- 10 screens worth of scrolling for the expanded timeline -->
-    <div class="scroll-spacer"></div>
+    <!-- BIG STATEMENT -->
+    <section id="why" class="statement-section">
+        <div class="statement-inner">
+            <p class="statement reveal">
+                Every music app treats audio as a feature.<br>
+                <span class="statement-accent">Dhvani treats everything else as noise.</span>
+            </p>
+        </div>
+    </section>
+
+    <!-- FEATURE CALLOUTS -->
+    <section id="callouts">
+        <div class="callout reveal">
+            <div class="callout-inner callout-left">
+                <p class="callout-label">Sound</p>
+                <h2>320kbps.<br>Always.</h2>
+                <p class="callout-desc">Zero re-encoding. Zero compression added on top. You hear exactly what was recorded.</p>
+            </div>
+        </div>
+
+        <div class="callout reveal">
+            <div class="callout-inner callout-right">
+                <p class="callout-label">Experience</p>
+                <h2>Zero ads.<br>Period.</h2>
+                <p class="callout-desc">Not "skip in 5 seconds." Not premium-gated. Literally zero. Built into the code, not hidden behind a paywall.</p>
+            </div>
+        </div>
+
+        <div class="callout reveal">
+            <div class="callout-inner callout-left">
+                <p class="callout-label">Design</p>
+                <h2>True black.<br>True OLED.</h2>
+                <p class="callout-desc">#000000. Real black. Your AMOLED pixels turn off completely — saving battery and looking stunning.</p>
+            </div>
+        </div>
+
+        <div class="callout reveal">
+            <div class="callout-inner callout-right">
+                <p class="callout-label">Reliability</p>
+                <h2>Offline.<br>Properly.</h2>
+                <p class="callout-desc">Airplane mode. Underground. Dead zones. If it's on your phone, it plays. No asterisks.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- FEATURES -->
+    <section id="features">
+        <div class="features-inner">
+            <p class="section-label reveal">Features</p>
+            <h2 class="section-title reveal">Everything you need.<br>Nothing you don't.</h2>
+            <div class="feat-grid">
+                <div class="feat-item reveal">
+                    <div class="feat-icon">♫</div>
+                    <h3>Pure 320kbps</h3>
+                    <p>Lossless playback. Zero degradation.</p>
+                </div>
+                <div class="feat-item reveal">
+                    <div class="feat-icon">⊘</div>
+                    <h3>Zero Ads</h3>
+                    <p>Clean listening. No interruptions, ever.</p>
+                </div>
+                <div class="feat-item reveal">
+                    <div class="feat-icon">◐</div>
+                    <h3>OLED Black</h3>
+                    <p>Pure #000000. Battery saver by design.</p>
+                </div>
+                <div class="feat-item reveal">
+                    <div class="feat-icon">⤓</div>
+                    <h3>Offline Mode</h3>
+                    <p>Your entire library, cached. Always ready.</p>
+                </div>
+                <div class="feat-item reveal">
+                    <div class="feat-icon">≡</div>
+                    <h3>Smart Playlists</h3>
+                    <p>Your playlists. Your order. Your rules.</p>
+                </div>
+                <div class="feat-item reveal">
+                    <div class="feat-icon">◈</div>
+                    <h3>Fluid Interface</h3>
+                    <p>Every animation earns its place.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PHONE PREVIEW -->
+    <section id="preview">
+        <div class="preview-inner">
+            <div class="preview-copy reveal">
+                <p class="section-label">The App</p>
+                <h2>Music front.<br>Everything else<br>out of the way.</h2>
+                <p class="preview-desc">We removed every feature that wasn't music. What's left is the cleanest player UI on Android.</p>
+                <ul class="preview-list">
+                    <li>Minimal — no clutter, ever</li>
+                    <li>AMOLED-black, pixel-perfect</li>
+                    <li>Works on any Android 8.0+</li>
+                </ul>
+            </div>
+            <div class="preview-phone reveal">
+                <div class="phone">
+                    <div class="phone-pill"></div>
+                    <div class="phone-body">
+                        <p class="ps-now-playing">Now Playing</p>
+                        <div class="ps-art">
+                            <img src="logo.png" alt="Dhvani">
+                        </div>
+                        <div class="ps-meta">
+                            <p class="ps-track">Lossless Stream</p>
+                            <p class="ps-artist">Dhvani · 320kbps</p>
+                        </div>
+                        <div class="ps-bars" id="ps-bars">
+                            <span></span><span></span><span></span><span></span>
+                            <span></span><span></span><span></span><span></span>
+                            <span></span><span></span><span></span><span></span>
+                            <span></span><span></span><span></span><span></span>
+                        </div>
+                        <div class="ps-progress">
+                            <div class="ps-track-bar">
+                                <div class="ps-fill" id="ps-fill"></div>
+                            </div>
+                            <div class="ps-time"><span>1:23</span><span>4:07</span></div>
+                        </div>
+                        <div class="ps-controls">
+                            <button aria-label="previous">⏮</button>
+                            <button class="ps-play" aria-label="play">▶</button>
+                            <button aria-label="next">⏭</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- DOWNLOAD CTA -->
+    <section id="download">
+        <div class="download-inner">
+            <h2 class="dl-title reveal">Free.<br>Forever.</h2>
+            <p class="dl-sub reveal">No account. No subscription. No strings.</p>
+            <div class="dl-actions reveal">
+                <button class="btn-primary btn-large" onclick="downloadApk()">Download Dhvani</button>
+                <p class="dl-spec">26.9 MB · Android 8.0+</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer id="footer">
+        <div class="footer-inner">
+            <div class="footer-top">
+                <img src="logo.png" alt="Dhvani" width="28">
+                <span>Dhvani</span>
+            </div>
+            <p class="footer-line">Built for people who actually listen.</p>
+            <p class="footer-copy">© 2024 Dhvani · v1.1.0</p>
+        </div>
+    </footer>
 
     <script src="script.js"></script>
 </body>
