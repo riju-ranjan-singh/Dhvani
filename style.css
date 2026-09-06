@@ -112,9 +112,10 @@ button  { cursor: pointer; font-family: inherit; border: none; background: none;
 }
 
 /* ── Buttons ── */
-.btn-primary {
+.btn-primary, a.btn-primary {
     display: inline-flex;
     align-items: center;
+    justify-content: center;
     padding: 14px 28px;
     background: var(--white);
     color: #000;
@@ -124,8 +125,8 @@ button  { cursor: pointer; font-family: inherit; border: none; background: none;
     letter-spacing: -.01em;
     transition: opacity .2s, transform .2s var(--ease);
 }
-.btn-primary:hover { opacity: .86; transform: scale(.98); }
-.btn-primary:active { transform: scale(.96); }
+.btn-primary:hover, a.btn-primary:hover { opacity: .86; transform: scale(.98); }
+.btn-primary:active, a.btn-primary:active { transform: scale(.96); }
 
 .btn-primary.btn-large {
     padding: 18px 36px;
@@ -623,3 +624,4 @@ button  { cursor: pointer; font-family: inherit; border: none; background: none;
     .btn-primary { width: 100%; justify-content: center; }
     .callout-right .callout-desc { margin-left: 0; }
 }
+
