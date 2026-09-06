@@ -1,0 +1,3 @@
+# APK binary — too large for Git (26.9MB > 25MB limit)
+# Upload to GitHub Releases instead
+*.apk
