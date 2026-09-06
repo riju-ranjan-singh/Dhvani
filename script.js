@@ -1,197 +1,131 @@
 gsap.registerPlugin(ScrollTrigger);
 
-// --- HERO FADE-INS ---
-gsap.from(".fade-in", {
-    y: 20,
-    opacity: 0,
-    duration: 0.8,
-    stagger: 0.15,
-    ease: "power2.out"
-});
+// Initialize states
+gsap.set("#scene-1", { opacity: 1 });
+gsap.set(".z-text", { z: 500, opacity: 0 });
+gsap.set("#scene-2", { opacity: 0 });
+gsap.set(".orbit-node", { scale: 0, opacity: 0, x: 0, y: 0 });
+gsap.set(".core-node", { scale: 0, opacity: 0 });
+gsap.set("#scene-3", { opacity: 0 });
+gsap.set("#phone-mockup", { y: 800, rotationX: 45, scale: 0.8 });
+gsap.set("#phone-text", { opacity: 0, x: 100 });
+gsap.set("#scene-4", { opacity: 0 });
+gsap.set(".horizontal-track", { x: "50vw" }); // Start off-center
+gsap.set("#scene-5", { opacity: 0 });
+gsap.set(".monolith-card", { scale: 0.5, rotationY: -45, opacity: 0 });
 
-// --- MONOLITH 3D TILT WITH REFLECTION ---
-const monolith = document.getElementById('monolith');
-const reflection = document.querySelector('.monolith-reflection');
-
-if (monolith) {
-    monolith.addEventListener('mousemove', e => {
-        const rect = monolith.getBoundingClientRect();
-        const x = e.clientX - rect.left;
-        const y = e.clientY - rect.top;
-        
-        const centerX = rect.width / 2;
-        const centerY = rect.height / 2;
-        
-        const rotateX = ((y - centerY) / centerY) * -8;
-        const rotateY = ((x - centerX) / centerX) * 8;
-        
-        const reflectionX = ((x / rect.width) * 100) - 50;
-        const reflectionY = ((y / rect.height) * 100) - 50;
-        
-        monolith.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.01, 1.01, 1.01)`;
-        reflection.style.transform = `translate3d(${reflectionX}px, ${reflectionY}px, 50px)`;
-        monolith.style.transition = 'transform 0.05s ease-out';
-    });
-    
-    monolith.addEventListener('mouseleave', () => {
-        monolith.style.transform = `perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)`;
-        reflection.style.transform = `translate3d(0px, 0px, 50px)`;
-        monolith.style.transition = 'transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
-    });
-}
-
-// --- MONOLITH PLAYLIST INTERACTION ---
-const playlistAddBtn = document.getElementById('playlist-add-btn');
-const toastMsg = document.getElementById('toast-msg');
-
-if (playlistAddBtn && toastMsg) {
-    playlistAddBtn.addEventListener('click', () => {
-        toastMsg.classList.add('show');
-        setTimeout(() => {
-            toastMsg.classList.remove('show');
-        }, 2000);
-    });
-}
-
-// --- 3D TILT EFFECT ---
-const tiltCards = document.querySelectorAll('.tilt-card');
-tiltCards.forEach(card => {
-    card.addEventListener('mousemove', e => {
-        const rect = card.getBoundingClientRect();
-        const x = e.clientX - rect.left;
-        const y = e.clientY - rect.top;
-        const centerX = rect.width / 2;
-        const centerY = rect.height / 2;
-        const rotateX = ((y - centerY) / centerY) * -4;
-        const rotateY = ((x - centerX) / centerX) * 4;
-        card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.01, 1.01, 1.01)`;
-    });
-    card.addEventListener('mouseleave', () => {
-        card.style.transform = `perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)`;
-        card.style.transition = 'transform 0.5s ease-out';
-    });
-});
-
-// --- INTERACTIVE TOUR WALKTHROUGH ---
-const tourSteps = document.querySelectorAll('.tour-step');
-const tourImages = document.querySelectorAll('.tour-img');
-const phoneFrame = document.querySelector('.phone-frame');
-
-tourSteps.forEach(step => {
-    step.addEventListener('click', () => {
-        // Toggle Active Step
-        tourSteps.forEach(s => s.classList.remove('active'));
-        step.classList.add('active');
-        
-        // Toggle Active Image
-        const stepNum = step.dataset.step;
-        tourImages.forEach(img => img.classList.remove('active'));
-        const activeImg = document.getElementById(`tour-img-${stepNum}`);
-        if (activeImg) activeImg.classList.add('active');
-    });
-});
-
-if (phoneFrame) {
-    phoneFrame.addEventListener('mousemove', e => {
-        const rect = phoneFrame.getBoundingClientRect();
-        const x = e.clientX - rect.left;
-        const y = e.clientY - rect.top;
-        const centerX = rect.width / 2;
-        const centerY = rect.height / 2;
-        const rotateX = ((y - centerY) / centerY) * -6;
-        const rotateY = ((x - centerX) / centerX) * 6;
-        phoneFrame.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.02, 1.02, 1.02)`;
-        phoneFrame.style.transition = 'transform 0.05s ease-out';
-    });
-    
-    phoneFrame.addEventListener('mouseleave', () => {
-        phoneFrame.style.transform = `perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)`;
-        phoneFrame.style.transition = 'transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
-    });
-}
-
-// --- AUDIO QUALITY WIDGET SIMULATOR (BENTO) ---
-const freqButtons = document.querySelectorAll('.freq-btn');
-const freqBars = document.querySelectorAll('.freq-bar');
-
-const waveHeights = {
-    320: [80, 95, 60, 90, 40],
-    160: [50, 65, 45, 60, 30],
-    96: [20, 30, 25, 35, 15]
-};
-
-freqButtons.forEach(btn => {
-    btn.addEventListener('click', (e) => {
-        freqButtons.forEach(b => b.classList.remove('active'));
-        e.target.classList.add('active');
-        
-        const rate = e.target.dataset.rate;
-        const heights = waveHeights[rate];
-        
-        freqBars.forEach((bar, idx) => {
-            bar.style.height = heights[idx] + '%';
-        });
-    });
-});
-
-// --- FAQ ACCORDION ---
-const faqItems = document.querySelectorAll('.faq-item');
-faqItems.forEach(item => {
-    const question = item.querySelector('.faq-question');
-    question.addEventListener('click', () => {
-        const isActive = item.classList.contains('active');
-        faqItems.forEach(i => i.classList.remove('active'));
-        if (!isActive) {
-            item.classList.add('active');
-        }
-    });
-});
-
-// --- TERMS & PRIVACY MODALS ---
-const termsLink = document.getElementById('terms-link');
-const termsModal = document.getElementById('terms-modal');
-const termsClose = document.getElementById('terms-close');
-
-const privacyLink = document.getElementById('privacy-link');
-const privacyModal = document.getElementById('privacy-modal');
-const privacyClose = document.getElementById('privacy-close');
-
-const setupModal = (link, modal, closeBtn) => {
-    if (link && modal && closeBtn) {
-        link.addEventListener('click', (e) => {
-            e.preventDefault();
-            modal.classList.add('show');
-            document.body.style.overflow = 'hidden';
-        });
-        
-        const closeModal = () => {
-            modal.classList.remove('show');
-            document.body.style.overflow = '';
-        };
-        
-        closeBtn.addEventListener('click', closeModal);
-        modal.addEventListener('click', (e) => {
-            if (e.target === modal) {
-                closeModal();
-            }
-        });
+// Master Timeline tied to scroll
+const tl = gsap.timeline({
+    scrollTrigger: {
+        trigger: ".scroll-spacer",
+        start: "top top",
+        end: "bottom bottom",
+        scrub: 1, 
+        pin: "#scroll-timeline"
     }
-};
-
-setupModal(termsLink, termsModal, termsClose);
-setupModal(privacyLink, privacyModal, privacyClose);
-
-
-// --- GSAP SECTIONS TRIGGER ---
-gsap.utils.toArray('.section').forEach(section => {
-    gsap.from(section, {
-        scrollTrigger: {
-            trigger: section,
-            start: "top 85%",
-        },
-        y: 40,
-        opacity: 0,
-        duration: 0.8,
-        ease: "power2.out"
-    });
 });
+
+// --- SCENE 1: Z-Axis Typography ---
+tl.to("#t1", { z: 0, opacity: 1, duration: 2 }, 0)
+  .to("#t1", { z: -500, opacity: 0, duration: 2 }, 2)
+  .to("#t2", { z: 0, opacity: 1, duration: 2 }, 1.5)
+  .to("#t2", { z: -500, opacity: 0, duration: 2 }, 3.5)
+  .to("#t3", { z: 0, opacity: 1, duration: 2 }, 3)
+  .to("#t4", { z: 0, opacity: 1, duration: 2 }, 3)
+  .to("#scene-1", { opacity: 0, duration: 2 }, 6)
+
+// --- BACKGROUND BLOB MUTATION ---
+  .to(".blob-1", { background: "radial-gradient(circle, #ff0055 0%, transparent 70%)", duration: 4 }, 2)
+  .to(".blob-2", { background: "radial-gradient(circle, #00f0ff 0%, transparent 70%)", duration: 4 }, 4)
+
+// --- SCENE 2: The Exploding Grid ---
+  .to("#scene-2", { opacity: 1, duration: 1 }, 7)
+  .to(".core-node", { scale: 1, opacity: 1, duration: 2, ease: "back.out(1.7)" }, 7)
+  .to("#node-1", { x: -350, y: -200, scale: 1, opacity: 1, duration: 2, ease: "power3.out" }, 8)
+  .to("#node-2", { x: 350, y: -150, scale: 1, opacity: 1, duration: 2, ease: "power3.out" }, 8.2)
+  .to("#node-3", { x: -300, y: 250, scale: 1, opacity: 1, duration: 2, ease: "power3.out" }, 8.4)
+  .to("#node-4", { x: 350, y: 200, scale: 1, opacity: 1, duration: 2, ease: "power3.out" }, 8.6)
+  .to("#scene-2", { opacity: 0, duration: 2 }, 12)
+
+// --- SCENE 3: 3D Phone Mockup ---
+  .to("#scene-3", { opacity: 1, duration: 1 }, 13)
+  .to("#phone-mockup", { y: 0, rotationX: 0, scale: 1, duration: 3, ease: "power2.out" }, 13)
+  .to("#phone-text", { opacity: 1, x: 0, duration: 2, ease: "power2.out" }, 14)
+  
+  // Parallax rotation on scroll for the phone
+  .to("#phone-mockup", { rotationY: 15, rotationX: -10, duration: 4 }, 16)
+  
+  .to("#scene-3", { opacity: 0, y: -200, duration: 2 }, 20)
+
+// --- SCENE 4: Horizontal Deep Dive ---
+  .to("#scene-4", { opacity: 1, duration: 1 }, 21)
+  // Translate the horizontal track across the screen
+  .to(".horizontal-track", { x: "-150vw", duration: 8, ease: "none" }, 22)
+  .to("#scene-4", { opacity: 0, duration: 2 }, 30)
+
+// --- SCENE 5: The Download Monolith ---
+  .to("#scene-5", { opacity: 1, duration: 1 }, 31)
+  .to(".monolith-card", { scale: 1, rotationY: 0, opacity: 1, duration: 3, ease: "power2.out" }, 31);
+
+
+// --- MOUSE PARALLAX ON PHONE (when active) ---
+document.addEventListener('mousemove', (e) => {
+    const phone = document.getElementById('phone-mockup');
+    if (phone && getComputedStyle(phone).opacity > 0) {
+        const xAxis = (window.innerWidth / 2 - e.pageX) / 50;
+        const yAxis = (window.innerHeight / 2 - e.pageY) / 50;
+        // Apply slight offset to existing GSAP transform using string manipulation or just direct style
+        // For simplicity, we just add a gentle translate
+        phone.style.transform += ` translate3d(${xAxis}px, ${yAxis}px, 0)`;
+    }
+});
+
+// --- AMBIENT PARTICLES ---
+const canvas = document.getElementById('ambient-particles');
+const ctx = canvas.getContext('2d');
+let w, h;
+let particles = [];
+
+function resize() {
+    w = canvas.width = window.innerWidth;
+    h = canvas.height = window.innerHeight;
+}
+window.addEventListener('resize', resize);
+resize();
+
+class Particle {
+    constructor() {
+        this.x = Math.random() * w;
+        this.y = Math.random() * h;
+        this.size = Math.random() * 2;
+        this.speedY = Math.random() * -0.5 - 0.1;
+        this.opacity = Math.random() * 0.5 + 0.1;
+    }
+    update() {
+        this.y += this.speedY;
+        if (this.y < 0) {
+            this.y = h;
+            this.x = Math.random() * w;
+        }
+    }
+    draw() {
+        ctx.fillStyle = `rgba(255, 255, 255, ${this.opacity})`;
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+        ctx.fill();
+    }
+}
+
+for (let i = 0; i < 100; i++) {
+    particles.push(new Particle());
+}
+
+function animateParticles() {
+    ctx.clearRect(0, 0, w, h);
+    particles.forEach(p => {
+        p.update();
+        p.draw();
+    });
+    requestAnimationFrame(animateParticles);
+}
+animateParticles();
