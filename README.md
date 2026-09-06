@@ -1,95 +1,78 @@
-# 🎧 Dhvani
+<div align="center">
 
-> Sound in its purest form. A distraction-free, ad-free music streaming application engineered for true audiophiles.
+# 🎧 DHVANI 
 
-Dhvani is a premium, minimalist music player built with **Flutter** and designed using **Clean Architecture** principles. It features high-fidelity streaming, persistent background audio sessions, offline caching, and on-device playlist curation—all packaged within a sleek, modern glassmorphic interface.
+<img src="https://readme-typing-svg.demolab.com?font=Outfit&weight=800&size=30&pause=1000&color=00FFCC&center=true&vCenter=true&width=600&lines=HEAR+THE+UNHEARD.;ZERO+COMPRESSION.;PURE+AUDIO+EXPERIENCE." alt="Typing Animation" />
 
----
+<br/>
 
-## 🌟 Key Features
+[![Version](https://img.shields.io/badge/version-1.1.0-blue.svg?style=for-the-badge&logo=android)]()
+[![Platform](https://img.shields.io/badge/platform-Android_8.0+-green.svg?style=for-the-badge&logo=android)]()
+[![Size](https://img.shields.io/badge/size-63.9_MB-orange.svg?style=for-the-badge)]()
+[![Status](https://img.shields.io/badge/status-active-success.svg?style=for-the-badge)]()
 
-* **Studio-Grade Playback**: Stream high-fidelity audio up to 320kbps for crystal-clear acoustics, or adjust dynamically to 96kbps to conserve data.
-* **Persistent Background Audio**: Fully integrated with system-level media controls, offering stable background playback that remains uninterrupted even when multitasking or putting the device to sleep.
-* **Zero Distractions**: No ads, no popups, no account registrations, and no mandatory logins. Just launch the app and play.
-* **Local Curations**: Create and organize custom playlists directly on your device. All configurations and lists are saved locally for private, ultra-fast access.
-* **Smart Caching**: Local caching of tracks ensures smooth playback with minimal network latency.
+<br/>
 
----
+> **A crazy immersive audio experience built for true audiophiles.** <br/>
+> Designed to put your music front and center with zero distractions, zero interruptions, and maximum fidelity.
 
-## 🛠 Tech Stack & Architecture
+</div>
 
-Dhvani is engineered from the ground up to ensure scalability, ease of testing, and high runtime performance.
+<hr/>
 
-* **Core Framework**: [Flutter](https://flutter.dev) (Dart)
-* **Architecture**: Clean Architecture with feature-first folder structure:
-  * **Data Layer**: Local storage repositories, database drivers, and network clients.
-  * **Domain Layer**: Core models and business use-cases.
-  * **Presentation Layer**: State-notifiers, views, and glassmorphic UI components.
-* **State Management**: [Flutter Riverpod](https://riverpod.dev) for reactive state updates and structured dependency injection.
-* **Local Databases**: [Hive](https://pub.dev/packages/hive) for high-performance, lightweight key-value offline storage.
-* **Audio Engine**: [just_audio](https://pub.dev/packages/just_audio) & [audio_service](https://pub.dev/packages/audio_service) for platform-native background audio tasks.
+<div align="center">
+  <img src="https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Objects/Headphone.png" alt="Headphone" width="100" height="100" />
+</div>
 
----
+## ✨ Core Features
 
-## 🚀 Getting Started
+| Feature | Description |
+| :--- | :--- |
+| **🔥 Pure Audio** | Enjoy your music in high fidelity. Optimized for 320kbps playback with **zero compression loss**. |
+| **🚫 Ad-Free** | No ads. Zero interruptions. Just you and your music. |
+| **🌙 OLED Black** | A stunning, true-black dark theme designed to save battery and look sleek on AMOLED displays. |
+| **📴 Offline** | Take your entire library anywhere, anytime. Complete offline support. |
+| **🎵 Playlists** | Infinite combinations at your fingertips. Create and manage playlists effortlessly. |
+| **📱 Fluid UI** | A beautifully minimal, modern user interface with buttery-smooth animations. |
 
-Follow these steps to run Dhvani locally on your development machine.
+<hr/>
 
-### Prerequisites
+<div align="center">
+  <img src="https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Objects/Mobile%20Phone.png" alt="Mobile Phone" width="100" height="100" />
+</div>
 
-Ensure you have the following installed:
-* [Flutter SDK](https://docs.flutter.dev/get-started/install) (Stable channel)
-* [Android SDK](https://developer.android.com/studio) (for Android compilation)
-* [Cocoapods](https://cocoapods.org) (for iOS compilation, macOS only)
+## 📥 Installation
 
-### Installation
+**Dhvani** is currently available as a standalone APK for Android devices.
 
-1. **Clone the Repository**
-   ```bash
-   git clone https://github.com/yourusername/M-Player.git
-   cd M-Player
-   ```
+1. **Download** the latest APK file: [`Dhvani.apk`](./Dhvani.apk)
+2. **Transfer** the file to your Android device (if downloading from a PC).
+3. **Locate** the downloaded `.apk` file using your File Manager.
+4. **Install** the app. *(Note: You may need to enable "Install from unknown sources").*
+5. **Launch** Dhvani and experience the unheard!
 
-2. **Fetch Dependencies**
-   ```bash
-   flutter pub get
-   ```
+> **System Requirements:** Android 8.0 (Oreo)+ | ~64 MB Storage
 
-3. **Generate Adaptive Launcher Icons**
-   ```bash
-   flutter pub run flutter_launcher_icons:main
-   ```
+<hr/>
 
-4. **Run the Application**
-   Connect a mobile device or launch an emulator, then execute:
-   ```bash
-   flutter run
-   ```
+<div align="center">
+  <img src="https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Objects/Laptop.png" alt="Laptop" width="100" height="100" />
+</div>
 
----
+## 💻 The Web Experience
 
-## 📂 Project Structure
+The promotional landing page is an immersive 3D web experience:
+- **HTML5 & CSS3** for structure and modern styling.
+- **Vanilla JavaScript** for core logic.
+- **GSAP (GreenSock)** + `ScrollTrigger` for heavy scroll-based cinematic animations.
+- **Custom SVG Filters** for glitch effects and liquid glass overlays.
 
-```text
-lib/
-├── core/
-│   ├── theme/           # Glassmorphic themes and colors
-│   └── utils/           # Shared utility classes
-├── data/
-│   └── models/          # Data transfer objects and models
-├── domain/
-│   └── usecases/        # Core business operations
-└── features/
-    ├── home/            # Home screen feed and carousels
-    ├── player/          # Playback panels, wave visualizers
-    ├── playlist/        # Playlist management
-    └── search/          # Media search client
-```
+<br/>
+<br/>
 
----
-
-## 📄 License & Compliance
-
-Dhvani is provided for personal, non-commercial use. Audio streams are fetched dynamically from public Content Delivery Networks (CDNs). The app does not host, index, or redistribute any copyrighted materials. 
-
-For full legal information, please consult the website's Terms of Service and Privacy Policy.
+<div align="center">
+  <i>Dhvani Engine V1.1 CORE — Built for those who listen closely.</i>
+  <br/>
+  <br/>
+  <img src="https://capsule-render.vercel.app/api?type=waving&color=00FFCC&height=100&section=footer"/>
+</div>
